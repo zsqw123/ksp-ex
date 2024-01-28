@@ -6,4 +6,4 @@ import zsu.ksp.ex.demo.api.SampleAnno
 class Lib2Impl
 
 @SampleAnno
-fun Lib1Fun() = 1
+fun lib2Fun() = 1

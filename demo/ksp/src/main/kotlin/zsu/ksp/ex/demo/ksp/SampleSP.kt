@@ -7,8 +7,8 @@ import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.google.devtools.ksp.symbol.KSAnnotated
-import zsu.ksp.ex.ExtResolver
 import zsu.ksp.ex.demo.api.SampleAnno
+import zsu.ksp.ex.ext
 
 class SampleSPP : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
@@ -21,10 +21,9 @@ class SampleSP(
 ) : SymbolProcessor {
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        val wrap = ExtResolver(resolver)
-        val sampleResult = wrap.allDeclarations()
+        val sampleResult = resolver.ext.allDeclarations()
             .filter { it.isAnnotationPresent(SampleAnno::class) }
-            .map { it.qualifiedName }
+            .mapNotNull { it.qualifiedName?.asString() }.toList()
         environment.logger.warn(sampleResult.toString())
         return emptyList()
     }
