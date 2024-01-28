@@ -4,7 +4,34 @@
 
 Extension for KSP, currently extensions:
 
-- `allDeclarationsWithDependencies()` get all kotlin declarations in itself and dependencies
+- `allDeclarationsWithDependencies()` get all kotlin declarations(`KSDeclaration`) in itself and dependencies
+
+## How to use
+
+Using it by one line call:
+
+```kotlin
+import zsu.ksp.ex.ext
+
+// use it!
+resolver.ext
+    .allDeclarationsWithDependencies()
+```
+
+### Dependencies
+[Maven Central: ksp-ext](https://central.sonatype.com/artifact/host.bytedance/ksp-ext)
+
+Latest version: ![Maven Central](https://img.shields.io/maven-central/v/host.bytedance/ksp-ext)
+
+Adds following maven artifact into your ksp plugin dependencies:
+
+```kotlin
+dependencies {
+    implementation("host.bytedance:ksp-ext:<latest>")
+}
+```
+
+adds gradle dependencies
 
 ### License
 
