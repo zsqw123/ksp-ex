@@ -22,3 +22,5 @@ include(":app")
 
 include(":ksp-ex")
 include(":demo")
+include(":demo:ksp")
+include(":demo:lib")
