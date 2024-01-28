@@ -22,15 +22,15 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 ```
 
 ### Dependencies
-[Maven Central: ksp-ext](https://central.sonatype.com/artifact/host.bytedance/ksp-ext)
+[Maven Central: ksp-ext](https://central.sonatype.com/artifact/host.bytedance/ksp-ex)
 
-Latest version: ![Maven Central](https://img.shields.io/maven-central/v/host.bytedance/ksp-ext)
+Latest version: ![Maven Central](https://img.shields.io/maven-central/v/host.bytedance/ksp-ex)
 
 Adds following maven artifact into your ksp plugin dependencies:
 
 ```kotlin
 dependencies {
-    implementation("host.bytedance:ksp-ext:<latest>")
+    implementation("host.bytedance:ksp-ex:<latest>")
 }
 ```
 
