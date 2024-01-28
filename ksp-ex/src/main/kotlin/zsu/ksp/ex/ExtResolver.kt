@@ -5,6 +5,10 @@ import com.google.devtools.ksp.symbol.KSDeclaration
 import zsu.ksp.ex.impl.ExtResolverImpl
 
 interface ExtResolver : Resolver {
+    /**
+     * all kotlin declarations in itself and their direct dependencies.
+     * might be very time-costing.
+     */
     fun allDeclarationsWithDependencies(): Sequence<KSDeclaration>
 }
 
