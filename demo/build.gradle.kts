@@ -4,4 +4,7 @@ plugins {
 }
 
 dependencies {
+    ksp(project(":demo:ksp"))
+    implementation(project(":demo:lib"))
+    implementation(project(":demo:api"))
 }
