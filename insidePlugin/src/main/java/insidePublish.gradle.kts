@@ -82,8 +82,8 @@ if (needPublish) publishing {
 
         // Provide artifacts information requited by Maven Central
         pom {
-            name.set("kn-jvm")
-            description.set("Auto JNI binding based on Kotlin Multiplatform")
+            name.set("ksp-ex")
+            description.set("Extension abilities for KSP")
             url.set(projectGitUrl)
 
             licenses {
