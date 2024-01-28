@@ -2,20 +2,23 @@
 
 **Note: still in the experimental stage and is not stable for production, It may be changed at any time**
 
-Extension for KSP, currently extensions:
+Extensions for KSP, extensions currently:
 
 - `allDeclarationsWithDependencies()` get all kotlin declarations(`KSDeclaration`) in itself and dependencies
 
 ## How to use
 
-Using it by one line call:
+Using it by one line call: `resolver.ext`
 
 ```kotlin
 import zsu.ksp.ex.ext
 
-// use it!
-resolver.ext
-    .allDeclarationsWithDependencies()
+override fun process(resolver: Resolver): List<KSAnnotated> {
+    // use it by extension `ext` of [com.google.devtools.ksp.processing.Resolver]
+    val allDeclarations = resolver.ext
+        .allDeclarationsWithDependencies()
+    // process your annotations here
+}
 ```
 
 ### Dependencies
