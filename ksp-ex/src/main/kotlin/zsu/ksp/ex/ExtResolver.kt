@@ -15,7 +15,7 @@ class ExtResolver(resolver: Resolver) : Resolver by resolver {
     private val resolver = resolver as ResolverImpl
 
     /** all kotlin declarations in itself and dependencies */
-    fun allDeclarations(): Sequence<KSDeclaration> {
+    fun allDeclarationsWithDependencies(): Sequence<KSDeclaration> {
         val module = resolver.module
         return getDeclarationsFromPackage(module, hashSetOf())
     }

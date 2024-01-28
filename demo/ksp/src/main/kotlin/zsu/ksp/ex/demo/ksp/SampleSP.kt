@@ -21,7 +21,7 @@ class SampleSP(
 ) : SymbolProcessor {
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        val sampleResult = resolver.ext.allDeclarations()
+        val sampleResult = resolver.ext.allDeclarationsWithDependencies()
             .filter { it.isAnnotationPresent(SampleAnno::class) }
             .mapNotNull { it.qualifiedName?.asString() }.toList()
         environment.logger.warn(sampleResult.toString())
