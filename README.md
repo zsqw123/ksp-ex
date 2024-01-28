@@ -22,7 +22,7 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 ```
 
 ### Dependencies
-[Maven Central: ksp-ext](https://central.sonatype.com/artifact/host.bytedance/ksp-ex)
+[Maven Central: ksp-ex](https://central.sonatype.com/artifact/host.bytedance/ksp-ex)
 
 Latest version: ![Maven Central](https://img.shields.io/maven-central/v/host.bytedance/ksp-ex)
 
