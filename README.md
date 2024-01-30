@@ -26,7 +26,7 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 
 Latest version: ![Maven Central](https://img.shields.io/maven-central/v/host.bytedance/ksp-ex)
 
-Adds following maven artifact into your ksp plugin dependencies:
+Adds following maven artifact into your ksp plugin's gradle dependencies:
 
 ```kotlin
 dependencies {
@@ -34,7 +34,11 @@ dependencies {
 }
 ```
 
-adds gradle dependencies
+recommended version alignments:
+
+| Kotlin | KSP           | KSP-EX     |
+|--------|---------------|------------|
+| 1.9.22 | 1.9.22-1.0.17 | 0.0.1-beta |
 
 ### License
 
