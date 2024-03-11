@@ -68,7 +68,7 @@ private fun Project.findDependencies(
 private fun Project.findChildDependencies(
     gatherClassPathSet: Set<String>,
     onDependencyFound: (Any) -> Unit
-) {
+) = afterEvaluate {
     val configurations = configurations
     val requiredConfigurations = gatherClassPathSet.mapNotNull { configurations.findByName(it) }
     for (configuration in requiredConfigurations) {
