@@ -17,8 +17,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "ksp-ex"
 includeBuild("insidePlugin")
-
-include(":app")
+includeBuild("depMergePlugin")
 
 include(":ksp-ex")
 include(":demo")
