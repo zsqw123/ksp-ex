@@ -3,7 +3,7 @@ import com.zsu.ksp.ex.MergePluginExtension
 plugins {
     kotlin("jvm")
     id("com.google.devtools.ksp")
-    id("ksp-deps-merge")
+    id("host.bytedance.ksp-deps-merge")
 }
 
 dependencies {
