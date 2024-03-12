@@ -14,6 +14,10 @@ import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.dependencies
 
 interface MergePluginExtension {
+    /**
+     * which classpath you want to collect into same project's dependencies.
+     * It uses [defaultCompileClasspathSet] by default.
+     */
     val gatherClassPathFrom: SetProperty<String>
 }
 
