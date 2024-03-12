@@ -22,9 +22,9 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 ```
 
 ### Dependencies
-[Maven Central: ksp-ex](https://central.sonatype.com/artifact/host.bytedance/ksp-ex)
 
-Latest version: ![Maven Central](https://img.shields.io/maven-central/v/host.bytedance/ksp-ex)
+Latest
+version: [![Maven Central](https://img.shields.io/maven-central/v/host.bytedance/ksp-ex)](https://central.sonatype.com/artifact/host.bytedance/ksp-ex)
 
 Adds following maven artifact into your ksp plugin's gradle dependencies:
 
@@ -39,6 +39,24 @@ recommended version alignments:
 | Kotlin | KSP           | KSP-EX     |
 |--------|---------------|------------|
 | 1.9.22 | 1.9.22-1.0.17 | 0.0.1-beta |
+
+### Dependency aggregation
+
+KSP will analyze the current module and its dependencies, but not the deeper submodules that the dependent module
+depends on. If you need to analyze all the modules, you can aggregate dependencies by apply the following gradle plugin
+on your module which wants to aggregates all dependencies.
+
+```kotlin
+plugins {
+    id("host.bytedance.ksp-deps-merge") version "<latest>"
+}
+```
+
+The plugin will be published both **gradle plugin portal** and **maven central**.
+
+- maven central: [![Maven Central](https://img.shields.io/maven-central/v/host.bytedance/ksp-deps-merge)](https://central.sonatype.com/artifact/host.bytedance/ksp-deps-merge)
+- gradle plugin portal: [![Gradle Plugin Portal Version](https://img.shields.io/gradle-plugin-portal/v/host.bytedance.ksp-deps-merge)](https://plugins.gradle.org/plugin/host.bytedance.ksp-deps-merge)
+
 
 ### License
 
