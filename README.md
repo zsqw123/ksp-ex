@@ -47,9 +47,23 @@ depends on. If you need to analyze all the modules, you can aggregate dependenci
 on your module which wants to aggregates all dependencies.
 
 ```kotlin
+// Using the plugins DSL
 plugins {
     id("host.bytedance.ksp-deps-merge") version "<latest>"
 }
+
+// or using legacy plugin application
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("host.bytedance:ksp-deps-merge:<latest>")
+    }
+}
+
+apply(plugin = "host.bytedance.ksp-deps-merge")
 ```
 
 The plugin will be published both **gradle plugin portal** and **maven central**.
