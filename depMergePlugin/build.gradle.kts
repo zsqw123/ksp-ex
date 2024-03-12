@@ -1,21 +1,13 @@
-import java.util.*
-
 plugins {
     kotlin("jvm") version "1.9.22"
     `kotlin-dsl`
     id("com.gradle.plugin-publish") version "1.2.1"
-    id("inside")
+    id("insidePublish")
 }
 
 group = "host.bytedance"
-val rootProperties = Properties()
 
-File(projectDir.parentFile, "gradle.properties").reader().use {
-    rootProperties.load(it)
-}
-
-val exVersion: String? by rootProperties
-exVersion?.let { version = it }
+val exVersion: String by project
 
 repositories {
     mavenCentral()

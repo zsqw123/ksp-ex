@@ -5,3 +5,5 @@ pluginManagement {
         google()
     }
 }
+
+includeBuild("../insidePlugin")
