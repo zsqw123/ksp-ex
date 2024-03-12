@@ -2,6 +2,8 @@ package com.zsu.ksp.ex
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.component.ComponentIdentifier
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
@@ -34,8 +36,6 @@ class MergePlugin : Plugin<Project> {
             }
         }
     }
-
-
 }
 
 private fun Project.componentId2Dependency(id: ComponentIdentifier): Any = when (id) {
@@ -48,11 +48,15 @@ private fun Project.componentId2Dependency(id: ComponentIdentifier): Any = when 
     }
 }
 
+/**
+ * we need to change the root project dependencies, so we could only use `configuration.incoming.dependencies`
+ * @param onDependencyFound [Dependency] object will be passed in [findDependencies] situation.
+ * @see findChildDependencies
+ */
 private fun Project.findDependencies(
     gatherClassPathSet: Set<String>,
-    onDependencyFound: (Any) -> Unit
+    onDependencyFound: (Any) -> Unit,
 ) {
-    val configurations = configurations
     val requiredConfigurations = gatherClassPathSet.mapNotNull { configurations.findByName(it) }
     for (configuration in requiredConfigurations) {
         for (dependency in configuration.incoming.dependencies) {
@@ -65,11 +69,24 @@ private fun Project.findDependencies(
     }
 }
 
+/**
+ * Children can be resolved, so we can resolve children directly through [Configuration.getResolvedConfiguration].
+ * Children may contain duplicated dependency projects, so we cannot use same way as [findDependencies]. It will
+ * generate nested [Project.afterEvaluate] and meets [org.gradle.api.InvalidUserCodeException] below
+ *
+ * ```text
+ * Caused by: org.gradle.api.InvalidUserCodeException: Cannot run Project.afterEvaluate(Action) when the project is already evaluated.
+ * 	at org.gradle.api.internal.project.DefaultProject.failAfterProjectIsEvaluated(DefaultProject.java:1100)
+ * 	at org.gradle.api.internal.project.DefaultProject.afterEvaluate(DefaultProject.java:1081)
+ * ```
+ *
+ * @param onDependencyFound [componentId2Dependency]'s output will be passed as parameter.
+ * @see componentId2Dependency
+ */
 private fun Project.findChildDependencies(
     gatherClassPathSet: Set<String>,
-    onDependencyFound: (Any) -> Unit
+    onDependencyFound: (Any) -> Unit,
 ) = afterEvaluate {
-    val configurations = configurations
     val requiredConfigurations = gatherClassPathSet.mapNotNull { configurations.findByName(it) }
     for (configuration in requiredConfigurations) {
         val artifacts = configuration.resolvedConfiguration.resolvedArtifacts
