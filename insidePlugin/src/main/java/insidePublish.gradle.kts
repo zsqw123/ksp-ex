@@ -34,6 +34,10 @@ if (needPublish) {
     val exVersion: String by project
     val mavenArtifactId: String = property("MAVEN_ARTIFACT") as? String ?: project.name
 
+    val javadocJar by tasks.registering(Jar::class) {
+        archiveClassifier.set("javadoc")
+    }
+
     publishing {
         // Configure maven central repository
         repositories {
@@ -76,6 +80,11 @@ if (needPublish) {
 
         // Configure all publications
         publications.withType<MavenPublication> {
+            // Stub javadoc.jar artifact
+            artifact(javadocJar.get()) {
+                classifier = "javadoc"
+            }
+
             // Provide artifacts information requited by Maven Central
             pom {
                 name.set("ksp-ex")
