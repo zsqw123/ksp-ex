@@ -13,6 +13,7 @@ interface ExtResolver : Resolver {
      *  e.g. [kotlin] package will analyze all package inside of `kotlin` package, such like:
      *  [kotlin.reflect], [kotlin.collections], [kotlin.jvm.functions] and so on.
      *  You can get better performance if you use more specified package names.
+     * @param nameFilter full qualified name filter for filter needed declarations.
      */
     fun allDeclarationsWithDependencies(
         rootPackage: String = "",
