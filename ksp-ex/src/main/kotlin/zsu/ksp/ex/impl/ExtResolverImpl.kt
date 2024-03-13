@@ -14,12 +14,13 @@ import zsu.ksp.ex.ExtResolver
 internal class ExtResolverImpl(resolver: Resolver) : ExtResolver, Resolver by resolver {
     private val resolver = resolver as ResolverImpl
 
-    override fun allDeclarationsWithDependencies(): Sequence<KSDeclaration> {
+    override fun allDeclarationsWithDependencies(rootPackage: FqName): Sequence<KSDeclaration> {
         val module = resolver.module
-        return getDeclarationsFromPackage(module, hashSetOf())
+        return getDeclarationsFromPackage(rootPackage, module, hashSetOf())
     }
 
     private fun getDeclarationsFromPackage(
+        rootPackage: FqName,
         moduleDescriptor: ModuleDescriptor,
         visited: HashSet<ModuleDescriptor>,
     ): Sequence<KSDeclaration> = sequence {
@@ -30,7 +31,7 @@ internal class ExtResolverImpl(resolver: Resolver) : ExtResolver, Resolver by re
 //            yieldAll(getDeclarationsFromPackage(childModule, visited))
 //        }
         // adds self
-        val packageNames = moduleDescriptor.allPackageNames()
+        val packageNames = moduleDescriptor.allPackageNames(rootPackage)
         yieldAll(packageNames.flatMap {
             getDeclarationsFromPackage(moduleDescriptor, it)
         })
@@ -48,8 +49,8 @@ internal class ExtResolverImpl(resolver: Resolver) : ExtResolver, Resolver by re
     }
 }
 
-private fun ModuleDescriptor.allPackageNames(): Sequence<FqName> = sequence {
-    val packageNames = packageNames(FqName.ROOT)
+private fun ModuleDescriptor.allPackageNames(rootPackage: FqName): Sequence<FqName> = sequence {
+    val packageNames = packageNames(rootPackage)
     yieldAll(packageNames)
 }
 
