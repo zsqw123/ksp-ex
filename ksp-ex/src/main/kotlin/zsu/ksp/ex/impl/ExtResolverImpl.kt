@@ -44,7 +44,7 @@ internal class ExtResolverImpl(resolver: Resolver) : ExtResolver, Resolver by re
 //            yieldAll(getDeclarationsFromPackage(childModule, visited))
 //        }
         // adds self
-        val packageNames = moduleDescriptor.allPackageNames(rootPackage)
+        val packageNames = moduleDescriptor.packageNames(rootPackage)
         yieldAll(packageNames.flatMap {
             getDeclarationsFromPackage(moduleDescriptor, it, nameFilter)
         })
@@ -62,11 +62,6 @@ internal class ExtResolverImpl(resolver: Resolver) : ExtResolver, Resolver by re
             .filter { it is MemberDescriptor && (nameFilter == null || nameFilter(it.fqNameSafe)) }
         return descriptors.map { (it as MemberDescriptor).toKSDeclaration() }
     }
-}
-
-private fun ModuleDescriptor.allPackageNames(rootPackage: FqName): Sequence<FqName> = sequence {
-    val packageNames = packageNames(rootPackage)
-    yieldAll(packageNames)
 }
 
 private val noNameFilter: (Name) -> Boolean = { true }
